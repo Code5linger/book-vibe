@@ -1,12 +1,16 @@
-import React, { use } from 'react';
+// Book.jsx
+import React, { Suspense } from 'react';
+const BookList = React.lazy(() => import('./BookList'));
 
-const Book = ({ fetchingBooks }) => {
-  const books = use(fetchingBooks);
+const Book = () => {
+  const bookPromise = fetch('booksData.json').then((res) => res.json());
 
-  console.log(books);
   return (
     <div>
-      <h1>Book</h1>
+      <h1 className="text-3xl text-center p-6">Books</h1>
+      <Suspense fallback={<span>Loading...</span>}>
+        <BookList bookPromise={bookPromise} />
+      </Suspense>
     </div>
   );
 };
