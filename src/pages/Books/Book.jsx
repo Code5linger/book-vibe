@@ -1,16 +1,30 @@
-// Book.jsx
-import React, { Suspense } from 'react';
-const BookList = React.lazy(() => import('./BookList'));
+import { FaStar } from 'react-icons/fa';
 
-const Book = () => {
-  const bookPromise = fetch('booksData.json').then((res) => res.json());
+const Book = ({ book }) => {
+  const { bookName, author, image, rating, category } = book;
 
   return (
-    <div>
-      <h1 className="text-3xl text-center p-6">Books</h1>
-      <Suspense fallback={<span>Loading...</span>}>
-        <BookList bookPromise={bookPromise} />
-      </Suspense>
+    <div className="card bg-base-100 w-96 shadow-sm border p-6">
+      <figure className="p-4 bg-gray-800 w-2/3 mx-auto">
+        <img className="h-[166px]" src={image} alt="Shoes" />
+      </figure>
+      <div className="card-body">
+        <h2 className="card-title">
+          {bookName}
+          <div className="badge badge-secondary">NEW</div>
+        </h2>
+        <p>
+          A card component has a figure, a body part, and inside body there are
+          title and actions parts
+        </p>
+        <div className="card-actions justify-end">
+          <div className="badge badge-outline">{category}</div>
+          <div className="badge badge-outline">
+            {rating}
+            <FaStar />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
